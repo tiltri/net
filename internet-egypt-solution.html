@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الحل الشامل لأزمة الإنترنت في مصر | Internet Freedom Egypt</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@400;500;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0A4D8C;
+            --primary-dark: #073A6B;
+            --secondary: #00B8D4;
+            --accent: #FF6B35;
+            --success: #00C853;
+            --warning: #FFB300;
+            --danger: #D32F2F;
+            --dark: #1A1A2E;
+            --light: #F8F9FA;
+            --white: #FFFFFF;
+            --gradient-1: linear-gradient(135deg, #0A4D8C 0%, #00B8D4 100%);
+            --gradient-2: linear-gradient(135deg, #FF6B35 0%, #FFB300 100%);
+            --gradient-3: linear-gradient(135deg, #00C853 0%, #00B8D4 100%);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.16);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        
+        /* Header & Navigation */
+        .header {
+            background: var(--gradient-1);
+            color: var(--white);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            animation: slideDown 0.6s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .logo {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            animation: rotate 1s ease-out 0.4s;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(-180deg) scale(0); }
+            to { transform: rotate(0) scale(1); }
+        }
+        
+        .nav {
+            display: flex;
+            gap: 2rem;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+        
+        .nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--white);
+            transition: var(--transition);
+        }
+        
+        .nav a:hover::before {
+            width: 100%;
+        }
+        
+        .nav a:hover {
+            background: rgba(255,255,255,0.15);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-1);
+            color: var(--white);
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h60v60H0z' fill='none'/%3E%3Cpath d='M30 0v60M0 30h60' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .hero h1 {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: var(--transition);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255,255,255,0.25);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Main Content Sections */
+        .section {
+            padding: 5rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section-alt {
+            background: var(--white);
+        }
+        
+        .section-title {
+            font-family: 'Tajawal', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--gradient-2);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Problem Section */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .problem-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border-right: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 0;
+            background: var(--gradient-2);
+            transition: var(--transition);
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .problem-card:hover::before {
+            height: 100%;
+        }
+        
+        .problem-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .problem-card p {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* Calculator Section */
+        .calculator {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            margin-top: 3rem;
+        }
+        
+        .calculator-title {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Cairo', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 184, 212, 0.1);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gradient-1);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .result-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 4px;
+            background: var(--gradient-2);
+        }
+        
+        .result-card:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-label {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .result-good {
+            color: var(--success) !important;
+        }
+        
+        .result-warning {
+            color: var(--warning) !important;
+        }
+        
+        .result-bad {
+            color: var(--danger) !important;
+        }
+        
+        /* Chart Section */
+        .chart-container {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            margin-top: 3rem;
+            max-height: 500px;
+        }
+        
+        /* Solutions Section */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .solution-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .solution-header {
+            padding: 2rem;
+            background: var(--gradient-1);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .solution-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .solution-number {
+            font-size: 4rem;
+            font-weight: 900;
+            opacity: 0.2;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+        }
+        
+        .solution-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .solution-subtitle {
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .solution-body {
+            padding: 2rem;
+        }
+        
+        .solution-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .solution-features li {
+            padding: 0.8rem 0;
+            padding-right: 2rem;
+            position: relative;
+            color: #555;
+        }
+        
+        .solution-features li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--success);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+        
+        .solution-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-3);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+            margin-top: 1rem;
+        }
+        
+        .solution-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            margin-top: 3rem;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table thead {
+            background: var(--gradient-1);
+            color: var(--white);
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .comparison-table th {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .comparison-table tbody tr {
+            border-bottom: 1px solid #E0E0E0;
+            transition: var(--transition);
+        }
+        
+        .comparison-table tbody tr:hover {
+            background: #F5F5F5;
+        }
+        
+        .comparison-table td {
+            color: #555;
+        }
+        
+        .comparison-highlight {
+            background: #E8F5E9 !important;
+            font-weight: 700;
+            color: var(--success) !important;
+        }
+        
+        /* Call to Action */
+        .cta {
+            background: var(--gradient-2);
+            color: var(--white);
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate-slow 20s linear infinite;
+        }
+        
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+        
+        .cta p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1.2rem 3rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Cairo', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+            border: none;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .footer-section a:hover {
+            color: var(--white);
+            padding-right: 0.5rem;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .calculator-grid,
+            .results {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🌐</div>
+                    <span>حرية الإنترنت</span>
+                </div>
+                <nav class="nav">
+                    <a href="#problem">المشكلة</a>
+                    <a href="#calculator">احسب استهلاكك</a>
+                    <a href="#solutions">الحلول</a>
+                    <a href="#comparison">المقارنة</a>
+                    <a href="#action">اتخذ إجراء</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>حان وقت التغيير<br>إنترنت غير محدود لكل مصري</h1>
+                <p class="subtitle">حل تقني واقعي وقابل للتطبيق فوراً</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">74%</span>
+                        <span class="stat-label">سعة مُهدرة</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">19</span>
+                        <span class="stat-label">كابل بحري دولي</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">12.5</span>
+                        <span class="stat-label">تيرابت/ثانية</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">13.5</span>
+                        <span class="stat-label">مليار جيجا/شهر</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="section">
+        <div class="container">
+            <h2 class="section-title">المشكلة الحقيقية</h2>
+            <p class="section-subtitle">ليست أزمة قدرات تقنية، بل أزمة سياسات إدارية</p>
+            
+            <div class="problem-grid">
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">🚫</div>
+                    <h3>احتكار البنية التحتية</h3>
+                    <p>شركة واحدة تسيطر على 19 كابلاً بحرياً تخدم 60 دولة بينما المواطن محروم من الاستفادة الكاملة</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">📊</div>
+                    <h3>إخفاء البيانات</h3>
+                    <p>منذ 2022 لا توجد تقارير شفافة عن الاستهلاك الفعلي - غياب العدادات اللحظية المتاحة للجمهور</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">💰</div>
+                    <h3>فرضية المستحيل</h3>
+                    <p>محاسبة المواطن كأن 10 مليون مشترك يستخدمون الإنترنت في نفس اللحظة - وهو أمر مستحيل تقنياً</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">⚡</div>
+                    <h3>تجاهل الكاش المحلي</h3>
+                    <p>70% من المحتوى متوفر محلياً (يوتيوب، فيسبوك، نتفليكس) لكن الشركات تحاسبك كأنه قادم من الخارج</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">📉</div>
+                    <h3>هدر 90% من السعة</h3>
+                    <p>في الأوقات العادية، نسبة استغلال الشبكة لا تتجاوز 5.5-10% فقط من السعة المتاحة</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">🌍</div>
+                    <h3>تأخر عن العالم</h3>
+                    <p>دول مثل فيتنام والهند والصومال توفر إنترنت غير محدود رغم إمكانياتها الأقل</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">احسب استهلاكك الحقيقي</h2>
+            <p class="section-subtitle">اكتشف كم تدفع مقابل كل جيجابايت وقارن بالدول الأخرى</p>
+            
+            <div class="calculator animate-on-scroll">
+                <h3 class="calculator-title">حاسبة الاستهلاك الذكية</h3>
+                
+                <div class="calculator-grid">
+                    <div class="input-group">
+                        <label for="monthlyQuota">باقتك الشهرية (جيجابايت)</label>
+                        <input type="number" id="monthlyQuota" value="140" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="monthlyPrice">السعر الشهري (جنيه)</label>
+                        <input type="number" id="monthlyPrice" value="200" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="actualUsage">استهلاكك الفعلي (جيجابايت/شهر)</label>
+                        <input type="number" id="actualUsage" value="300" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="familyMembers">عدد أفراد الأسرة</label>
+                        <select id="familyMembers">
+                            <option value="1">فرد واحد</option>
+                            <option value="2">فردان</option>
+                            <option value="3">3 أفراد</option>
+                            <option value="4" selected>4 أفراد</option>
+                            <option value="5">5 أفراد</option>
+                            <option value="6">6 أفراد</option>
+                            <option value="7+">أكثر من 6</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateUsage()">احسب الآن</button>
+                
+                <div class="results" id="results" style="display: none;">
+                    <div class="result-card">
+                        <span class="result-value" id="pricePerGB">-</span>
+                        <span class="result-label">جنيه / جيجابايت</span>
+                    </div>
+                    
+                    <div class="result-card">
+                        <span class="result-value" id="monthlyRecharge">-</span>
+                        <span class="result-label">مرات الشحن/شهر</span>
+                    </div>
+                    
+                    <div class="result-card">
+                        <span class="result-value" id="yearlyTotal">-</span>
+                        <span class="result-label">التكلفة السنوية (جنيه)</span>
+                    </div>
+                    
+                    <div class="result-card">
+                        <span class="result-value" id="wastedCapacity">-</span>
+                        <span class="result-label">من السعة المهدرة لديك</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chart -->
+            <div class="chart-container animate-on-scroll">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="section">
+        <div class="container">
+            <h2 class="section-title">الحلول العملية القابلة للتطبيق فوراً</h2>
+            <p class="section-subtitle">خطوات واضحة وواقعية يمكن تنفيذها خلال أسابيع</p>
+            
+            <div class="solutions-grid">
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-header">
+                        <div class="solution-number">01</div>
+                        <h3 class="solution-title">الشفافية الفورية</h3>
+                        <p class="solution-subtitle">نظام مراقبة مفتوح للجميع</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul class="solution-features">
+                            <li>لوحة بيانات عامة تعرض استهلاك السعة الدولية لحظياً</li>
+                            <li>عداد شخصي لكل مشترك يوضح استهلاكه الحقيقي</li>
+                            <li>تقارير شهرية شفافة عن توزيع السعات واستغلالها</li>
+                            <li>API مفتوح للباحثين والصحفيين</li>
+                        </ul>
+                        <button class="solution-btn">التفاصيل التقنية</button>
+                    </div>
+                </div>
+                
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-header">
+                        <div class="solution-number">02</div>
+                        <h3 class="solution-title">إدارة ذكية للذروة</h3>
+                        <p class="solution-subtitle">حل تقني بدلاً من القيود</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul class="solution-features">
+                            <li>إنترنت غير محدود 24/7 للجميع</li>
+                            <li>في ذروة الاستخدام فقط (2-3 ساعات): أولوية للخدمات الأساسية</li>
+                            <li>تخفيض جودة الفيديو تلقائياً إلى 720p في الذروة</li>
+                            <li>لا قطع، لا محابس، لا سرعة 512 كيلوبت!</li>
+                        </ul>
+                        <button class="solution-btn">كيف يعمل؟</button>
+                    </div>
+                </div>
+                
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-header">
+                        <div class="solution-number">03</div>
+                        <h3 class="solution-title">توسيع الكاش المحلي</h3>
+                        <p class="solution-subtitle">المحتوى الشائع داخل مصر</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul class="solution-features">
+                            <li>زيادة سيرفرات الكاش في كل محافظة</li>
+                            <li>تخزين محتوى يوتيوب، نتفليكس، فيسبوك محلياً</li>
+                            <li>تخفيض الضغط على الكابلات الدولية بنسبة 85%</li>
+                            <li>سرعات أعلى وتكلفة أقل في نفس الوقت</li>
+                        </ul>
+                        <button class="solution-btn">البنية المقترحة</button>
+                    </div>
+                </div>
+                
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-header">
+                        <div class="solution-number">04</div>
+                        <h3 class="solution-title">فتح السوق للمنافسة</h3>
+                        <p class="solution-subtitle">كسر الاحتكار</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul class="solution-features">
+                            <li>السماح لشركات خاصة باستئجار سعات من الكابلات</li>
+                            <li>فصل ملكية البنية التحتية عن تقديم الخدمة</li>
+                            <li>إنشاء هيئة رقابية مستقلة</li>
+                            <li>تخفيض الأسعار بنسبة 60% خلال سنة</li>
+                        </ul>
+                        <button class="solution-btn">خارطة الطريق</button>
+                    </div>
+                </div>
+                
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-header">
+                        <div class="solution-number">05</div>
+                        <h3 class="solution-title">باقات عادلة ومرنة</h3>
+                        <p class="solution-subtitle">حسب الاحتياج الحقيقي</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul class="solution-features">
+                            <li>باقة أساسية: 500 جيجا شهرياً (150 جنيه)</li>
+                            <li>باقة عائلية: 1 تيرابايت شهرياً (250 جنيه)</li>
+                            <li>باقة غير محدودة: سرعة كاملة دائماً (400 جنيه)</li>
+                            <li>باقة للشركات: حلول مخصصة بأسعار منافسة</li>
+                        </ul>
+                        <button class="solution-btn">قارن الأسعار</button>
+                    </div>
+                </div>
+                
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-header">
+                        <div class="solution-number">06</div>
+                        <h3 class="solution-title">دعم التحول الرقمي</h3>
+                        <p class="solution-subtitle">مصر الرقمية بإنترنت حقيقي</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul class="solution-features">
+                            <li>إنترنت مجاني للمدارس والجامعات الحكومية</li>
+                            <li>باقات مدعومة للطلاب والباحثين</li>
+                            <li>سرعات عالية للمشاريع القومية</li>
+                            <li>تشجيع الشركات الناشئة في مجال التكنولوجيا</li>
+                        </ul>
+                        <button class="solution-btn">الخطة الكاملة</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section id="comparison" class="section section-alt">
+        <div class="container">
+            <h2 class="section-title">مصر مقابل العالم</h2>
+            <p class="section-subtitle">مقارنة واقعية مع دول مشابهة ومنافسة</p>
+            
+            <div class="comparison-table animate-on-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>الدولة</th>
+                            <th>عدد السكان</th>
+                            <th>السعة الدولية</th>
+                            <th>السعر/شهر</th>
+                            <th>الباقة</th>
+                            <th>السرعة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="comparison-highlight">
+                            <td><strong>مصر (المقترح)</strong></td>
+                            <td>105 مليون</td>
+                            <td>12.5 تيرابت/ث</td>
+                            <td>250 جنيه</td>
+                            <td>غير محدود</td>
+                            <td>100 ميجا</td>
+                        </tr>
+                        <tr>
+                            <td>مصر (الحالي)</td>
+                            <td>105 مليون</td>
+                            <td>12.5 تيرابت/ث</td>
+                            <td>200 جنيه</td>
+                            <td>140 جيجا</td>
+                            <td>30 ميجا*</td>
+                        </tr>
+                        <tr>
+                            <td>فيتنام</td>
+                            <td>98 مليون</td>
+                            <td>20 تيرابت/ث</td>
+                            <td>$12 (~350 ج)</td>
+                            <td>غير محدود</td>
+                            <td>1000 ميجا</td>
+                        </tr>
+                        <tr>
+                            <td>الهند</td>
+                            <td>1.4 مليار</td>
+                            <td>50+ تيرابت/ث</td>
+                            <td>$8 (~230 ج)</td>
+                            <td>غير محدود</td>
+                            <td>200 ميجا</td>
+                        </tr>
+                        <tr>
+                            <td>الأردن</td>
+                            <td>10 مليون</td>
+                            <td>2 تيرابت/ث</td>
+                            <td>$20 (~580 ج)</td>
+                            <td>غير محدود</td>
+                            <td>100 ميجا</td>
+                        </tr>
+                        <tr>
+                            <td>السعودية</td>
+                            <td>35 مليون</td>
+                            <td>100+ تيرابت/ث</td>
+                            <td>$40 (~1160 ج)</td>
+                            <td>غير محدود</td>
+                            <td>1000 ميجا</td>
+                        </tr>
+                        <tr>
+                            <td>الإمارات</td>
+                            <td>10 مليون</td>
+                            <td>120+ تيرابت/ث</td>
+                            <td>$50 (~1450 ج)</td>
+                            <td>غير محدود</td>
+                            <td>1000 ميجا</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p style="text-align: center; margin-top: 2rem; color: #666; font-size: 0.9rem;">
+                * السرعة المُعلنة "up to 30 Mbps" لكن الواقع أقل بكثير بسبب الباقات المحدودة
+            </p>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="action" class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>حان وقت العمل</h2>
+                <p>الحل موجود، التقنية جاهزة، والبنية التحتية قادرة<br>ما ننتظره فقط هو الإرادة السياسية والضغط الشعبي</p>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">حمّل التقرير الكامل</a>
+                    <a href="#" class="btn btn-secondary">شارك الحملة</a>
+                    <a href="#" class="btn btn-secondary">اتصل بنائبك</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>عن المبادرة</h3>
+                    <p>مبادرة شعبية مستقلة تهدف لتحقيق العدالة الرقمية في مصر من خلال حلول تقنية واقعية وقابلة للتطبيق</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>روابط مهمة</h3>
+                    <a href="#">التقرير الفني الكامل</a>
+                    <a href="#">البيانات والإحصائيات</a>
+                    <a href="#">المقارنات الدولية</a>
+                    <a href="#">أسئلة وأجوبة</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>انضم للحملة</h3>
+                    <a href="#">Twitter/X</a>
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Telegram</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>اتصل بنا</h3>
+                    <p>للاستفسارات والتعاون</p>
+                    <a href="mailto:info@internet-freedom.eg">info@internet-freedom.eg</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2026 حرية الإنترنت في مصر | جميع البيانات من مصادر رسمية</p>
+                <p>#انترنت_غير_محدود_في_مصر</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Calculator Function
+        function calculateUsage() {
+            const quota = parseFloat(document.getElementById('monthlyQuota').value);
+            const price = parseFloat(document.getElementById('monthlyPrice').value);
+            const usage = parseFloat(document.getElementById('actualUsage').value);
+            const familyMembers = document.getElementById('familyMembers').value;
+            
+            // Calculate price per GB
+            const pricePerGB = (price / quota).toFixed(2);
+            
+            // Calculate monthly recharges needed
+            const recharges = Math.ceil(usage / quota);
+            
+            // Calculate yearly total
+            const yearlyTotal = (price * recharges * 12).toLocaleString('en-US');
+            
+            // Calculate wasted capacity percentage
+            const totalCapacity = 13500; // 13.5 billion GB
+            const totalUsage = 3500; // 3.5 billion GB
+            const wastedPercent = ((totalCapacity - totalUsage) / totalCapacity * 100).toFixed(1);
+            
+            // Update results
+            document.getElementById('pricePerGB').textContent = pricePerGB;
+            document.getElementById('pricePerGB').className = 'result-value ' + 
+                (pricePerGB > 2 ? 'result-bad' : pricePerGB > 1.5 ? 'result-warning' : 'result-good');
+            
+            document.getElementById('monthlyRecharge').textContent = recharges + 'x';
+            document.getElementById('monthlyRecharge').className = 'result-value ' + 
+                (recharges > 2 ? 'result-bad' : recharges > 1 ? 'result-warning' : 'result-good');
+            
+            document.getElementById('yearlyTotal').textContent = yearlyTotal;
+            document.getElementById('yearlyTotal').className = 'result-value result-bad';
+            
+            document.getElementById('wastedCapacity').textContent = wastedPercent + '%';
+            document.getElementById('wastedCapacity').className = 'result-value result-bad';
+            
+            // Show results
+            document.getElementById('results').style.display = 'grid';
+            
+            // Update chart
+            updateChart();
+        }
+        
+        // Chart Function
+        function updateChart() {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            
+            // Destroy existing chart if any
+            if (window.myChart) {
+                window.myChart.destroy();
+            }
+            
+            window.myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['مصر (حالي)', 'مصر (مقترح)', 'فيتنام', 'الهند', 'الأردن', 'السعودية'],
+                    datasets: [{
+                        label: 'السعر (جنيه مصري)',
+                        data: [200, 250, 350, 230, 580, 1160],
+                        backgroundColor: [
+                            'rgba(211, 47, 47, 0.8)',
+                            'rgba(0, 200, 83, 0.8)',
+                            'rgba(0, 184, 212, 0.8)',
+                            'rgba(0, 184, 212, 0.8)',
+                            'rgba(255, 179, 0, 0.8)',
+                            'rgba(255, 179, 0, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(211, 47, 47, 1)',
+                            'rgba(0, 200, 83, 1)',
+                            'rgba(0, 184, 212, 1)',
+                            'rgba(0, 184, 212, 1)',
+                            'rgba(255, 179, 0, 1)',
+                            'rgba(255, 179, 0, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'مقارنة الأسعار (إنترنت غير محدود)',
+                            font: {
+                                size: 18,
+                                family: 'Cairo',
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'السعر (جنيه مصري)',
+                                font: {
+                                    family: 'Cairo',
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Scroll Animation
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                
+                if (elementTop < window.innerHeight - 100 && elementBottom > 0) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Initialize
+        window.addEventListener('scroll', handleScrollAnimation);
+        window.addEventListener('load', () => {
+            handleScrollAnimation();
+            updateChart();
+        });
+        
+        // Initialize chart on load
+        updateChart();
+    </script>
+</body>
+</html>
